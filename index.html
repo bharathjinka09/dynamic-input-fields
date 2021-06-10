@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Multiple Dynamic Input fields</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+	<h1 class="text-center">Add Multiple Dynamic Input fields</h1>
+	<br>
+	<div class="customer_records">
+		<div class="row">
+			<div class="col-md-3">
+				
+			    <input class="form-control" name="customer_name" type="text" value="name">
+			</div>
+			<div class="col-md-3">
+
+			    <input class="form-control" name="customer_age" type="number" value="age">
+			</div>
+			<div class="col-md-3">
+
+			    <input class="form-control" name="customer_email" type="email" value="email">
+			</div>
+			<div class="col-md-3">
+
+			    <a class="extra-fields-customer btn btn-sm btn-info" href="#">Add More Customer</a>
+			</div>
+		</div>
+		<br>
+	</div>	
+
+  <div class="customer_records_dynamic"></div>
+
+</div>
+<script type="text/javascript">
+	$('.extra-fields-customer').click(function() {
+	  $('.customer_records').clone().appendTo('.customer_records_dynamic');
+	  $('.customer_records_dynamic .customer_records').addClass('single remove');
+	  $('.single .extra-fields-customer').remove();
+	  $('.single').append('<a href="#" class="remove-field btn-remove-customer btn btn-sm btn-danger">Remove Fields</a><br><br>');
+	  $('.customer_records_dynamic > .single').attr("class", "remove");
+
+	  $('.customer_records_dynamic input').each(function() {
+	    var count = 0;
+	    var fieldname = $(this).attr("name");
+	    $(this).attr('name', fieldname + count);
+	    count++;
+	  });
+
+	});
+
+	$(document).on('click', '.remove-field', function(e) {
+	  $(this).parent('.remove').remove();
+	  e.preventDefault();
+});
+</script>
+</body>
+</html>
